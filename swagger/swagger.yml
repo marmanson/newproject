@@ -1,0 +1,264 @@
+swagger: "2.0"
+info:
+  title: beego Test API
+  description: beego has a very cool tools to autogenerate documents for your API
+  version: 1.0.0
+  termsOfService: http://beego.me/
+  contact:
+    email: astaxie@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /v1
+paths:
+  /exit/:
+    get:
+      tags:
+      - exit
+      operationId: ExitController.Get
+      responses:
+        "200":
+          description: '{string} success'
+        "403":
+          description: ""
+  /home/:
+    get:
+      tags:
+      - home
+      operationId: HomeController.Get
+      responses:
+        "200":
+          description: '{string} success'
+        "403":
+          description: ""
+  /login/:
+    post:
+      tags:
+      - login
+      operationId: LoginController.Post
+      parameters:
+      - in: query
+        name: username
+        description: username
+        required: true
+        type: string
+      - in: query
+        name: password
+        description: password
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.User'
+        "403":
+          description: ""
+  /register/:
+    post:
+      tags:
+      - register
+      operationId: RegisterController.Post
+      parameters:
+      - in: query
+        name: username
+        description: username
+        required: true
+        type: string
+      - in: query
+        name: password
+        description: password
+        required: true
+        type: string
+      - in: query
+        name: repassword
+        description: repassword
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.User'
+        "403":
+          description: ""
+  /services/:
+    get:
+      tags:
+      - services
+      operationId: ServiceController.Request
+      parameters:
+      - in: query
+        name: servicename
+        description: servicename
+        required: true
+        type: string
+      - in: query
+        name: servicepath
+        description: servicepath
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string}  success'
+        "403":
+          description: ""
+    post:
+      tags:
+      - services
+      operationId: ServiceController.Post
+      parameters:
+      - in: query
+        name: servicename
+        description: servicename
+        required: true
+        type: string
+      - in: query
+        name: path
+        description: path
+        required: true
+        type: string
+      - in: query
+        name: statement
+        description: statement
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Service'
+        "403":
+          description: ""
+    delete:
+      tags:
+      - services
+      operationId: ServiceController.Delete
+      parameters:
+      - in: query
+        name: servicename
+        description: servicename
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} success'
+        "403":
+          description: ""
+    patch:
+      tags:
+      - services
+      operationId: ServiceController.Patch
+      parameters:
+      - in: query
+        name: servicename
+        description: servicename
+        required: true
+        type: string
+      - in: query
+        name: updateservicename
+        description: updateservicename
+        required: true
+        type: string
+      - in: query
+        name: updatepath
+        description: updatepath
+        required: true
+        type: string
+      - in: query
+        name: updatestatement
+        description: updatestatement
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Service'
+        "403":
+          description: ""
+  /subscribe/:
+    get:
+      tags:
+      - subscribe
+      operationId: SubscribeController.Get
+      responses:
+        "200":
+          description: '{string} success'
+        "403":
+          description: ""
+    post:
+      tags:
+      - subscribe
+      operationId: SubscribeController.Post
+      parameters:
+      - in: query
+        name: serviceroute
+        description: serviceroute
+        required: true
+        type: string
+      - in: query
+        name: token
+        description: token
+        required: true
+        type: string
+      - in: query
+        name: param
+        description: param
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} success'
+        "403":
+          description: ""
+    delete:
+      tags:
+      - subscribe
+      operationId: SubscribeController.Delete
+      parameters:
+      - in: query
+        name: serviceroute
+        description: serviceroute
+        required: true
+        type: string
+      - in: query
+        name: servicename
+        description: servicename
+        required: true
+        type: string
+      - in: query
+        name: token
+        description: token
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} success'
+        "403":
+          description: ""
+definitions:
+  models.Service:
+    title: Service
+    type: object
+    properties:
+      Path:
+        type: string
+      Servicename:
+        type: string
+      Statement:
+        type: string
+  models.User:
+    title: User
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int64
+      Password:
+        type: string
+      Role:
+        type: integer
+        format: int64
+      Username:
+        type: string
